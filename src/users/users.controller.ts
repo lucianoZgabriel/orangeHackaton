@@ -29,22 +29,22 @@ export class UsersController {
     return this.usersService.getUser(id);
   }
 
+  @Get()
+  async getUsers() {
+    return this.usersService.listUsers();
+  }
+
   @Patch(':id')
   async updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body()
-    userData: {
-      firstName?: string;
-      lastName?: string;
-      email?: string;
-      password?: string;
-    },
+    userData: UpdatePatchUserDto,
   ) {
     return this.usersService.updateUser(id, userData);
   }
 
-  // @Delete(':id')
-  // async delete(@Param('id', ParseIntPipe) id: number) {
-  //   return { id: id };
-  // }
+  @Delete(':id')
+  async deleteUser(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.deleteUser(id);
+  }
 }
