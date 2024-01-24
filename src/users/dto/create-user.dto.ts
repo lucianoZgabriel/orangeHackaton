@@ -2,8 +2,11 @@ import { IsEmail, IsString, IsStrongPassword } from "class-validator";
 
 export class CreateUserDto {
   @IsString()
-  readonly name: string;
+  readonly firstName: string;
 
+  @IsString()
+  readonly lastName: string;
+  
   @IsEmail()
   readonly email: string;
 

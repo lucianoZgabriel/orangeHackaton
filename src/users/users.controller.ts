@@ -7,7 +7,6 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Put,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePutUserDto } from './dto/update-put-user.dto';
@@ -20,29 +19,15 @@ export class UsersController {
 
   @Post()
   async addUser(
-    @Body()
-    CreateUserDto: {
-      firstName: string;
-      lastName: string;
-      email: string;
-      password: string;
-    },
+    @Body() { firstName, lastName, email, password }: CreateUserDto,
   ) {
-    return this.usersService.createUser(CreateUserDto);
+    return this.usersService.createUser({firstName, lastName, email, password});
   }
 
   @Get(':id')
   async getUser(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.getUser(id);
   }
-
-  // @Put(':id')
-  // async update(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() { name, email, password }: UpdatePutUserDto,
-  // ) {
-  //   return { method: 'PUT', id, name, email, password };
-  // }
 
   @Patch(':id')
   async updateUser(
